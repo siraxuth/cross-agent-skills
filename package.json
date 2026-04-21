@@ -1,0 +1,12 @@
+{
+  "name": "cross-agent-skills",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Cross-agent skills and repo policy pack installers",
+  "license": "Apache-2.0",
+  "scripts": {
+    "install:project-pack": "bash ./install-project-pack.sh .",
+    "install:project-pack:force": "bash ./install-project-pack.sh --force .",
+    "install:skills": "bash ./install.sh ."
+  }
+}

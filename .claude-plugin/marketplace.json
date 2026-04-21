@@ -1,38 +1,17 @@
 {
-  "name": "my-skills-collection",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "cross-agent-skills",
+  "description": "All Anthropic skills — works with Claude Code, Codex, Cursor, Windsurf, Copilot, and 40+ agents",
   "owner": {
-    "name": "Sirayuth Naensing",
-    "email": "siraxuth@gmail.com"
-  },
-  "metadata": {
-    "description": "My custom skills collection",
-    "version": "1.0.0"
+    "name": "siraxuth",
+    "url": "https://github.com/siraxuth"
   },
   "plugins": [
     {
       "name": "all-skills",
-      "description": "All skills in this collection",
+      "description": "All 17 Anthropic skills in one install",
       "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/algorithmic-art",
-        "./skills/brand-guidelines",
-        "./skills/canvas-design",
-        "./skills/claude-api",
-        "./skills/doc-coauthoring",
-        "./skills/docx",
-        "./skills/frontend-design",
-        "./skills/internal-comms",
-        "./skills/mcp-builder",
-        "./skills/pdf",
-        "./skills/pptx",
-        "./skills/skill-creator",
-        "./skills/slack-gif-creator",
-        "./skills/theme-factory",
-        "./skills/web-artifacts-builder",
-        "./skills/webapp-testing",
-        "./skills/xlsx"
-      ]
+      "category": "productivity"
     }
   ]
 }
