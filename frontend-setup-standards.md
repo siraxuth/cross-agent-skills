@@ -4,16 +4,19 @@ Use this file whenever an agent is setting up a frontend stack or writing substa
 
 ## Version Policy
 
-Always use the **latest stable releases that are compatible with the current Node.js LTS**.
+Always use the **latest stable releases that are compatible with the runtime and toolchain the stack officially supports**.
 
 Important:
 
 - Node.js has formal LTS releases.
+- Deno has stable releases, but not a Node-style LTS line.
 - React, Next.js, and Tailwind CSS do **not** publish an LTS channel in the same Node-style sense.
-- For React, Next.js, and Tailwind CSS, "LTS" in this repository means:
+- For Node-based stacks, use the current Node.js LTS unless the user explicitly asks for something else.
+- For Deno-native stacks, use the current stable Deno release recommended by the framework or official docs.
+- For React, Next.js, and Tailwind CSS, "stable" in this repository means:
   - use the latest stable release
   - verify it from the official docs at implementation time
-  - ensure it is compatible with the current Node.js LTS
+  - ensure it is compatible with the chosen runtime and toolchain
 
 ## Verified Baseline As Of April 21, 2026
 
@@ -24,18 +27,41 @@ Verified from official docs:
 - Next.js latest stable release visible in the official blog: **16.2** on **March 18, 2026**
 - Tailwind CSS latest stable major visible in the official blog: **4.0**
 
-Because these change over time, agents must re-check official docs before installing in a fresh project.
+Because these change over time, agents must re-check official docs before installing in a fresh project. Deno-native projects should also verify the current stable Deno release at implementation time.
+
+## Runtime and Package Manager Policy
+
+Choose the runtime and package manager that are **officially supported, fast in practice, and stable for the stack being built**.
+
+Default order of operations:
+
+1. If the repo already has a runtime, lockfile, or workspace tool, keep it unless the user asks to migrate.
+2. If the framework is clearly Node-first, use the current Node.js LTS.
+3. If the framework is clearly Deno-native, use Deno.
+4. Choose the fastest stable package manager or runtime workflow that does not add compatibility churn.
+
+Practical defaults:
+
+- prefer `bun` for new Node-based frontend apps when the template, dependencies, CI, and deployment target are known to work cleanly with it
+- prefer `pnpm` when compatibility, monorepo behavior, deterministic installs, or wider ecosystem predictability matter more than chasing the fastest happy path
+- use `deno` when the framework or tooling is Deno-native or officially recommends Deno as a first-class path
+- do not force `deno` onto Node-first stacks such as typical Next.js plus shadcn/ui setups unless official support is clearly verified
+- do not switch package managers casually inside an existing repo
+- keep exactly one lockfile strategy per project unless the repo already has an intentional exception
 
 ## Setup Rules
 
 When initializing a new frontend project:
 
-- use the current **Node.js LTS**, not Current unless the user explicitly asks for it
-- use the latest stable **Next.js**, **React**, and **Tailwind CSS** compatible with that Node LTS
+- choose the runtime and package manager that the target stack officially supports best
+- for Node-based setups, use the current **Node.js LTS**, not Current unless the user explicitly asks for it
+- for Deno-native setups, use the current stable **Deno** release recommended by the stack
+- use the latest stable **Next.js**, **React**, and **Tailwind CSS** compatible with that runtime and toolchain
 - use **TypeScript**
 - use strict typing and avoid loose `any`-driven setup
 - prefer the framework's current recommended bootstrap flow
 - verify exact package versions from official docs before writing install commands
+- prefer `bun` or `pnpm` over `npm` for new Node-based work unless the template or tooling makes another choice clearly safer
 
 ## Frontend Stack Defaults
 
@@ -44,6 +70,7 @@ Unless the repo already dictates otherwise:
 - Next.js App Router
 - React latest stable
 - Tailwind CSS latest stable
+- `bun` or `pnpm` for Node-based package management, chosen by compatibility needs
 - shadcn/ui as the base component system
 
 ## Component Source Policy
@@ -157,12 +184,13 @@ Good pattern examples:
 When implementing frontend work:
 
 1. verify latest stable versions against official docs
-2. lock to current Node.js LTS compatibility
-3. start with shadcn/ui
-4. pull from Magic UI, React Bits, Aceternity UI, and 21st.dev only for targeted needs
-5. use Dribbble as inspiration only
-6. minimize client JavaScript
-7. split the work into clean components and folders
+2. choose the runtime and package manager with the best support-to-speed tradeoff for the stack
+3. lock Node-based work to current Node.js LTS, or use stable Deno for Deno-native work
+4. start with shadcn/ui when the stack supports it
+5. pull from Magic UI, React Bits, Aceternity UI, and 21st.dev only for targeted needs
+6. use Dribbble as inspiration only
+7. minimize client JavaScript
+8. split the work into clean components and folders
 
 ## Anti-Patterns
 
@@ -170,6 +198,9 @@ Do not:
 
 - use outdated boilerplates when current stable docs say otherwise
 - interpret "LTS" as "old but safe" for React, Next.js, or Tailwind
+- treat every frontend project as Node-only by default
+- force Deno onto Node-first tooling without verified first-class support
+- add multiple lockfiles or bounce between package managers casually
 - paste vendor demo code without adapting it to the local design system
 - make the whole page a client component for convenience
 - dump all sections into a single `page.tsx`

@@ -33,7 +33,10 @@ When an agent is doing frontend implementation or project setup, it must follow 
 
 That includes:
 
-- using the latest stable releases compatible with the current Node.js LTS
+- choosing the best officially supported runtime and package manager for the stack
+- using the latest stable releases compatible with that runtime and toolchain
+- preferring `bun` or `pnpm` for new Node-based frontend work unless the repo already dictates otherwise
+- using `deno` for Deno-native setups, not forcing it onto Node-first stacks without verified support
 - using shadcn/ui as the primary UI foundation
 - using Magic UI, React Bits, Aceternity UI, and 21st.dev selectively as source material
 - using Dribbble as inspiration only

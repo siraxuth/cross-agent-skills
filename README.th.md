@@ -139,7 +139,9 @@ bash .cross-agent-skills/install.sh .
 
 หลังติดตั้ง policy pack แล้ว agent จะถูกบังคับให้ทำตามแนวทางนี้:
 
-- ใช้เวอร์ชัน stable ล่าสุดที่เข้ากับ Node.js LTS ปัจจุบัน
+- เลือก runtime/package manager ที่ framework รองรับจริง และเร็วพอโดยไม่เสียเสถียรภาพ
+- งานฝั่ง Node ให้ prefer `bun` หรือ `pnpm` ตามความเข้ากันได้ของ stack
+- ใช้ `deno` เฉพาะตอนที่ stack รองรับแบบ first-class จริง
 - ใช้ `shadcn/ui` เป็นฐานหลัก
 - ใช้ `Magic UI`, `React Bits`, `Aceternity UI`, `21st.dev` แบบเลือกใช้ให้เหมาะ ไม่ก๊อปมั่ว
 - ใช้ `Dribbble` เป็น reference ด้านภาพและ layout เท่านั้น
@@ -176,8 +178,8 @@ bash .cross-agent-skills/install.sh .
 
 ## หมายเหตุ
 
-React, Next.js และ Tailwind CSS ไม่มี LTS channel แบบเดียวกับ Node.js ดังนั้นใน repo นี้คำว่า "LTS" สำหรับสามตัวนี้หมายถึง:
+React, Next.js และ Tailwind CSS ไม่มี LTS channel แบบเดียวกับ Node.js ดังนั้นใน repo นี้กฎสำหรับสามตัวนี้คือ:
 
 - ใช้ stable ล่าสุด
 - เช็กจาก docs ทางการก่อนใช้งานจริง
-- ต้องเข้ากับ Node.js LTS ปัจจุบัน
+- ต้องเข้ากับ runtime/toolchain ที่เลือกและ framework รองรับจริง
